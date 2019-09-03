@@ -305,22 +305,22 @@ levels(region)
 # 3.5.5 Lists
 # Data frames are a special case of lists. We will cover lists in more detail later, but know that they are useful because you can store any combination of different types. Below is an example of a list we created for you:
 
-record
-
-class(record)
-
-# You might also encounter lists without variable names:
-
-
-# We won’t be using lists until later, but you might encounter one in your own exploration of R. For this reason, we show you some basics here.
-
-# As with data frames, you can extract the components of a list with the accessor $. In fact, data frames are a type of list.
-
-record$student_id
+# record
+# 
+# class(record)
+# 
+# # You might also encounter lists without variable names:
+# 
+# 
+# # We won’t be using lists until later, but you might encounter one in your own exploration of R. For this reason, we show you some basics here.
+# 
+# # As with data frames, you can extract the components of a list with the accessor $. In fact, data frames are a type of list.
+# 
+# record$student_id
 
 # We can also use double square brackets ([[) like this:
 
-record[["student_id"]]
+# record[["student_id"]]
 
 # You should get used to the fact that in R, there are often several ways to do the same thing, such as accessing entries.
 
