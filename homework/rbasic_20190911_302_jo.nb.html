@@ -1796,15 +1796,199 @@ summary {
 <p>For more on this more advanced topic we recommend the R packages book.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZHBseXI6OmZpbHRlclxuXG5gYGAifQ== -->
-<pre class="r"><code>dplyr::filter
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyA0LjFcbmEgPC0gMFxuaWYoYSE9MCl7XG4gIHByaW50KDEvYSlcbn0gZWxzZXtcbiAgcHJpbnQoXCJObyByZWNpcHJvY2FsIGZvciAwLlwiKVxufVxuYGBgIn0= -->
+<pre class="r"><code># 4.1
+a &lt;- 0
+if(a!=0){
+  print(1/a)
+} else{
+  print(&quot;No reciprocal for 0.&quot;)
+}</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUmVnaXN0ZXJlZCBTMyBtZXRob2Qgb3ZlcndyaXR0ZW4gYnkgJ2RwbHlyJzpcbiAgbWV0aG9kICAgICAgICAgICBmcm9tXG4gIHByaW50LnJvd3dpc2VfZGYgICAgIFxuIn0= -->
-<pre><code>Registered S3 method overwritten by 'dplyr':
-  method           from
-  print.rowwise_df     </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiTm8gcmVjaXByb2NhbCBmb3IgMC5cIlxuIn0= -->
+<pre><code>[1] &quot;No reciprocal for 0.&quot;</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkc2xhYnMpXG5kYXRhKG11cmRlcnMpXG5tdXJkZXJfcmF0ZSA8LSBtdXJkZXJzJHRvdGFsIC8gbXVyZGVycyRwb3B1bGF0aW9uKjEwMDAwMFxuXG5pbmQgPC0gd2hpY2gubWluKG11cmRlcl9yYXRlKVxuaWYobXVyZGVyX3JhdGVbaW5kXSA8IDAuNSl7XG4gIHByaW50KG11cmRlcnMkc3RhdGVbaW5kXSkgXG59IGVsc2V7XG4gIHByaW50KFwiTm8gc3RhdGUgaGFzIG11cmRlciByYXRlIHRoYXQgbG93XCIpXG59XG5gYGAifQ== -->
+<pre class="r"><code>library(dslabs)
+data(murders)
+murder_rate &lt;- murders$total / murders$population*100000
+
+ind &lt;- which.min(murder_rate)
+if(murder_rate[ind] &lt; 0.5){
+  print(murders$state[ind]) 
+} else{
+  print(&quot;No state has murder rate that low&quot;)
+}</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiVmVybW9udFwiXG4ifQ== -->
+<pre><code>[1] &quot;Vermont&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaWYobXVyZGVyX3JhdGVbaW5kXSA8IDAuMjUpe1xuICBwcmludChtdXJkZXJzJHN0YXRlW2luZF0pIFxufSBlbHNle1xuICBwcmludChcIk5vIHN0YXRlIGhhcyBhIG11cmRlciByYXRlIHRoYXQgbG93LlwiKVxufVxuYGBgIn0= -->
+<pre class="r"><code>if(murder_rate[ind] &lt; 0.25){
+  print(murders$state[ind]) 
+} else{
+  print(&quot;No state has a murder rate that low.&quot;)
+}</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiTm8gc3RhdGUgaGFzIGEgbXVyZGVyIHJhdGUgdGhhdCBsb3cuXCJcbiJ9 -->
+<pre><code>[1] &quot;No state has a murder rate that low.&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYSA8LSAwXG5pZmVsc2UoYSA+IDAsIDEvYSwgTkEpXG5gYGAifQ== -->
+<pre class="r"><code>a &lt;- 0
+ifelse(a &gt; 0, 1/a, NA)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIE5BXG4ifQ== -->
+<pre><code>[1] NA</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYSA8LSBjKDAsMSwyLC00LDUpXG5yZXN1bHQgPC0gaWZlbHNlKGEgPiAwLCAxL2EsIE5BKVxuXG5kYXRhKG5hX2V4YW1wbGUpXG5ub19uYXMgPC0gaWZlbHNlKGlzLm5hKG5hX2V4YW1wbGUpLCAwLCBuYV9leGFtcGxlKSBcbnN1bShpcy5uYShub19uYXMpKVxuYGBgIn0= -->
+<pre class="r"><code>a &lt;- c(0,1,2,-4,5)
+result &lt;- ifelse(a &gt; 0, 1/a, NA)
+
+data(na_example)
+no_nas &lt;- ifelse(is.na(na_example), 0, na_example) 
+sum(is.na(no_nas))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDBcbiJ9 -->
+<pre><code>[1] 0</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueiA8LSBjKFRSVUUsIFRSVUUsIEZBTFNFKVxuYW55KHopXG5gYGAifQ== -->
+<pre class="r"><code>z &lt;- c(TRUE, TRUE, FALSE)
+any(z)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFRSVUVcbiJ9 -->
+<pre><code>[1] TRUE</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYWxsKHopXG5gYGAifQ== -->
+<pre class="r"><code>all(z)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIEZBTFNFXG4ifQ== -->
+<pre><code>[1] FALSE</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyA0LjJcbmF2ZyA8LSBmdW5jdGlvbih4KXtcbiAgcyA8LSBzdW0oeClcbiAgbiA8LSBsZW5ndGgoeClcbiAgcy9uXG59XG5cbnggPC0gMToxMDBcbmlkZW50aWNhbChtZWFuKHgpLCBhdmcoeCkpXG5gYGAifQ== -->
+<pre class="r"><code># 4.2
+avg &lt;- function(x){
+  s &lt;- sum(x)
+  n &lt;- length(x)
+  s/n
+}
+
+x &lt;- 1:100
+identical(mean(x), avg(x))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFRSVUVcbiJ9 -->
+<pre><code>[1] TRUE</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucyA8LSAzXG5hdmcoMToxMClcbmBgYCJ9 -->
+<pre class="r"><code>s &lt;- 3
+avg(1:10)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDUuNVxuIn0= -->
+<pre><code>[1] 5.5</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc1xuYGBgIn0= -->
+<pre class="r"><code>s</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDNcbiJ9 -->
+<pre><code>[1] 3</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBteV9mdW5jdGlvbiA8LSBmdW5jdGlvbihWQVJJQUJMRV9OQU1FKXtcbiMgICBwZXJmb3JtIG9wZXJhdGlvbnMgb24gVkFSSUFCTEVfTkFNRSBhbmQgY2FsY3VsYXRlIFZBTFVFXG4jICAgVkFMVUVcbiMgfVxuXG5hdmcgPC0gZnVuY3Rpb24oeCwgYXJpdGhtZXRpYyA9IFRSVUUpe1xuICBuIDwtIGxlbmd0aCh4KVxuICBpZmVsc2UoYXJpdGhtZXRpYywgc3VtKHgpL24sIHByb2QoeCleKDEvbikpXG59XG5cblxuIyA0LjNcbnNlYXJjaCgpXG5gYGAifQ== -->
+<pre class="r"><code># my_function &lt;- function(VARIABLE_NAME){
+#   perform operations on VARIABLE_NAME and calculate VALUE
+#   VALUE
+# }
+
+avg &lt;- function(x, arithmetic = TRUE){
+  n &lt;- length(x)
+  ifelse(arithmetic, sum(x)/n, prod(x)^(1/n))
+}
+
+
+# 4.3
+search()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcIi5HbG9iYWxFbnZcIiAgICAgICAgXCJwYWNrYWdlOmRzbGFic1wiICAgXG4gWzNdIFwidG9vbHM6cnN0dWRpb1wiICAgICBcInBhY2thZ2U6c3RhdHNcIiAgICBcbiBbNV0gXCJwYWNrYWdlOmdyYXBoaWNzXCIgIFwicGFja2FnZTpnckRldmljZXNcIlxuIFs3XSBcInBhY2thZ2U6dXRpbHNcIiAgICAgXCJwYWNrYWdlOmRhdGFzZXRzXCIgXG4gWzldIFwicGFja2FnZTptZXRob2RzXCIgICBcIkF1dG9sb2Fkc1wiICAgICAgICBcblsxMV0gXCJwYWNrYWdlOmJhc2VcIiAgICAgXG4ifQ== -->
+<pre><code> [1] &quot;.GlobalEnv&quot;        &quot;package:dslabs&quot;   
+ [3] &quot;tools:rstudio&quot;     &quot;package:stats&quot;    
+ [5] &quot;package:graphics&quot;  &quot;package:grDevices&quot;
+ [7] &quot;package:utils&quot;     &quot;package:datasets&quot; 
+ [9] &quot;package:methods&quot;   &quot;Autoloads&quot;        
+[11] &quot;package:base&quot;     </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3RhdHM6OmZpbHRlclxuYGBgIn0= -->
+<pre class="r"><code>stats::filter</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiZnVuY3Rpb24gKHgsIGZpbHRlciwgbWV0aG9kID0gYyhcImNvbnZvbHV0aW9uXCIsIFwicmVjdXJzaXZlXCIpLCBcbiAgICBzaWRlcyA9IDJMLCBjaXJjdWxhciA9IEZBTFNFLCBpbml0ID0gTlVMTCkgXG57XG4gICAgbWV0aG9kIDwtIG1hdGNoLmFyZyhtZXRob2QpXG4gICAgeCA8LSBhcy50cyh4KVxuICAgIHN0b3JhZ2UubW9kZSh4KSA8LSBcImRvdWJsZVwiXG4gICAgeHRzcCA8LSB0c3AoeClcbiAgICBuIDwtIGFzLmludGVnZXIoTlJPVyh4KSlcbiAgICBpZiAoaXMubmEobikpIFxuICAgICAgICBzdG9wKGdldHRleHRmKFwiaW52YWxpZCB2YWx1ZSBvZiAlc1wiLCBcIk5ST1coeClcIiksIGRvbWFpbiA9IE5BKVxuICAgIG5zZXIgPC0gTkNPTCh4KVxuICAgIGZpbHRlciA8LSBhcy5kb3VibGUoZmlsdGVyKVxuICAgIG5maWx0IDwtIGFzLmludGVnZXIobGVuZ3RoKGZpbHRlcikpXG4gICAgaWYgKGlzLm5hKG5maWx0KSkgXG4gICAgICAgIHN0b3AoZ2V0dGV4dGYoXCJpbnZhbGlkIHZhbHVlIG9mICVzXCIsIFwibGVuZ3RoKGZpbHRlcilcIiksIFxuICAgICAgICAgICAgZG9tYWluID0gTkEpXG4gICAgaWYgKGFueU5BKGZpbHRlcikpIFxuICAgICAgICBzdG9wKFwibWlzc2luZyB2YWx1ZXMgaW4gJ2ZpbHRlcidcIilcbiAgICBpZiAobWV0aG9kID09IFwiY29udm9sdXRpb25cIikge1xuICAgICAgICBpZiAobmZpbHQgPiBuKSBcbiAgICAgICAgICAgIHN0b3AoXCInZmlsdGVyJyBpcyBsb25nZXIgdGhhbiB0aW1lIHNlcmllc1wiKVxuICAgICAgICBzaWRlcyA8LSBhcy5pbnRlZ2VyKHNpZGVzKVxuICAgICAgICBpZiAoaXMubmEoc2lkZXMpIHx8IChzaWRlcyAhPSAxTCAmJiBzaWRlcyAhPSAyTCkpIFxuICAgICAgICAgICAgc3RvcChcImFyZ3VtZW50ICdzaWRlcycgbXVzdCBiZSAxIG9yIDJcIilcbiAgICAgICAgY2lyY3VsYXIgPC0gYXMubG9naWNhbChjaXJjdWxhcilcbiAgICAgICAgaWYgKGlzLm5hKGNpcmN1bGFyKSkgXG4gICAgICAgICAgICBzdG9wKFwiJ2NpcmN1bGFyJyBtdXN0IGJlIGxvZ2ljYWwgYW5kIG5vdCBOQVwiKVxuICAgICAgICBpZiAoaXMubWF0cml4KHgpKSB7XG4gICAgICAgICAgICB5IDwtIG1hdHJpeChOQSwgbiwgbnNlcilcbiAgICAgICAgICAgIGZvciAoaSBpbiBzZXFfbGVuKG5zZXIpKSB5WywgaV0gPC0gLkNhbGwoQ19jZmlsdGVyLCBcbiAgICAgICAgICAgICAgICB4WywgaV0sIGZpbHRlciwgc2lkZXMsIGNpcmN1bGFyKVxuICAgICAgICB9XG4gICAgICAgIGVsc2UgeSA8LSAuQ2FsbChDX2NmaWx0ZXIsIHgsIGZpbHRlciwgc2lkZXMsIGNpcmN1bGFyKVxuICAgIH1cbiAgICBlbHNlIHtcbiAgICAgICAgaWYgKG1pc3NpbmcoaW5pdCkpIHtcbiAgICAgICAgICAgIGluaXQgPC0gbWF0cml4KDAsIG5maWx0LCBuc2VyKVxuICAgICAgICB9XG4gICAgICAgIGVsc2Uge1xuICAgICAgICAgICAgbmkgPC0gTlJPVyhpbml0KVxuICAgICAgICAgICAgaWYgKG5pICE9IG5maWx0KSBcbiAgICAgICAgICAgICAgICBzdG9wKFwibGVuZ3RoIG9mICdpbml0JyBtdXN0IGVxdWFsIGxlbmd0aCBvZiAnZmlsdGVyJ1wiKVxuICAgICAgICAgICAgaWYgKE5DT0woaW5pdCkgIT0gMUwgJiYgTkNPTChpbml0KSAhPSBuc2VyKSB7XG4gICAgICAgICAgICAgICAgc3RvcChzcHJpbnRmKG5nZXR0ZXh0KG5zZXIsIFwiJ2luaXQnIG11c3QgaGF2ZSAlZCBjb2x1bW5cIiwgXG4gICAgICAgICAgICAgICAgICBcIidpbml0JyBtdXN0IGhhdmUgMSBvciAlZCBjb2x1bW5zXCIsIGRvbWFpbiA9IFwiUi1zdGF0c1wiKSwgXG4gICAgICAgICAgICAgICAgICBuc2VyKSwgZG9tYWluID0gTkEpXG4gICAgICAgICAgICB9XG4gICAgICAgICAgICBpZiAoIWlzLm1hdHJpeChpbml0KSkgXG4gICAgICAgICAgICAgICAgZGltKGluaXQpIDwtIGMobmZpbHQsIG5zZXIpXG4gICAgICAgIH1cbiAgICAgICAgaW5kIDwtIHNlcV9sZW4obmZpbHQpXG4gICAgICAgIGlmIChpcy5tYXRyaXgoeCkpIHtcbiAgICAgICAgICAgIHkgPC0gbWF0cml4KE5BLCBuLCBuc2VyKVxuICAgICAgICAgICAgZm9yIChpIGluIHNlcV9sZW4obnNlcikpIHlbLCBpXSA8LSAuQ2FsbChDX3JmaWx0ZXIsIFxuICAgICAgICAgICAgICAgIHhbLCBpXSwgZmlsdGVyLCBjKHJldihpbml0WywgaV0pLCBkb3VibGUobikpKVstaW5kXVxuICAgICAgICB9XG4gICAgICAgIGVsc2UgeSA8LSAuQ2FsbChDX3JmaWx0ZXIsIHgsIGZpbHRlciwgYyhyZXYoaW5pdFssIDFMXSksIFxuICAgICAgICAgICAgZG91YmxlKG4pKSlbLWluZF1cbiAgICB9XG4gICAgdHNwKHkpIDwtIHh0c3BcbiAgICBjbGFzcyh5KSA8LSBpZiAobnNlciA+IDFMKSBcbiAgICAgICAgYyhcIm10c1wiLCBcInRzXCIpXG4gICAgZWxzZSBcInRzXCJcbiAgICB5XG59XG48Ynl0ZWNvZGU6IDB4NTY0YmQyMDY3ZTQ4PlxuPGVudmlyb25tZW50OiBuYW1lc3BhY2U6c3RhdHM+XG4ifQ== -->
+<pre><code>function (x, filter, method = c(&quot;convolution&quot;, &quot;recursive&quot;), 
+    sides = 2L, circular = FALSE, init = NULL) 
+{
+    method &lt;- match.arg(method)
+    x &lt;- as.ts(x)
+    storage.mode(x) &lt;- &quot;double&quot;
+    xtsp &lt;- tsp(x)
+    n &lt;- as.integer(NROW(x))
+    if (is.na(n)) 
+        stop(gettextf(&quot;invalid value of %s&quot;, &quot;NROW(x)&quot;), domain = NA)
+    nser &lt;- NCOL(x)
+    filter &lt;- as.double(filter)
+    nfilt &lt;- as.integer(length(filter))
+    if (is.na(nfilt)) 
+        stop(gettextf(&quot;invalid value of %s&quot;, &quot;length(filter)&quot;), 
+            domain = NA)
+    if (anyNA(filter)) 
+        stop(&quot;missing values in 'filter'&quot;)
+    if (method == &quot;convolution&quot;) {
+        if (nfilt &gt; n) 
+            stop(&quot;'filter' is longer than time series&quot;)
+        sides &lt;- as.integer(sides)
+        if (is.na(sides) || (sides != 1L &amp;&amp; sides != 2L)) 
+            stop(&quot;argument 'sides' must be 1 or 2&quot;)
+        circular &lt;- as.logical(circular)
+        if (is.na(circular)) 
+            stop(&quot;'circular' must be logical and not NA&quot;)
+        if (is.matrix(x)) {
+            y &lt;- matrix(NA, n, nser)
+            for (i in seq_len(nser)) y[, i] &lt;- .Call(C_cfilter, 
+                x[, i], filter, sides, circular)
+        }
+        else y &lt;- .Call(C_cfilter, x, filter, sides, circular)
+    }
+    else {
+        if (missing(init)) {
+            init &lt;- matrix(0, nfilt, nser)
+        }
+        else {
+            ni &lt;- NROW(init)
+            if (ni != nfilt) 
+                stop(&quot;length of 'init' must equal length of 'filter'&quot;)
+            if (NCOL(init) != 1L &amp;&amp; NCOL(init) != nser) {
+                stop(sprintf(ngettext(nser, &quot;'init' must have %d column&quot;, 
+                  &quot;'init' must have 1 or %d columns&quot;, domain = &quot;R-stats&quot;), 
+                  nser), domain = NA)
+            }
+            if (!is.matrix(init)) 
+                dim(init) &lt;- c(nfilt, nser)
+        }
+        ind &lt;- seq_len(nfilt)
+        if (is.matrix(x)) {
+            y &lt;- matrix(NA, n, nser)
+            for (i in seq_len(nser)) y[, i] &lt;- .Call(C_rfilter, 
+                x[, i], filter, c(rev(init[, i]), double(n)))[-ind]
+        }
+        else y &lt;- .Call(C_rfilter, x, filter, c(rev(init[, 1L]), 
+            double(n)))[-ind]
+    }
+    tsp(y) &lt;- xtsp
+    class(y) &lt;- if (nser &gt; 1L) 
+        c(&quot;mts&quot;, &quot;ts&quot;)
+    else &quot;ts&quot;
+    y
+}
+&lt;bytecode: 0x564bd2067e48&gt;
+&lt;environment: namespace:stats&gt;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZHBseXI6OmZpbHRlclxuYGBgIn0= -->
+<pre class="r"><code>dplyr::filter</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiZnVuY3Rpb24gKC5kYXRhLCAuLi4sIC5wcmVzZXJ2ZSA9IEZBTFNFKSBcbntcbiAgICBVc2VNZXRob2QoXCJmaWx0ZXJcIilcbn1cbjxieXRlY29kZTogMHg1NjRiZDI2YjQ2MDA+XG48ZW52aXJvbm1lbnQ6IG5hbWVzcGFjZTpkcGx5cj5cbiJ9 -->
 <pre><code>function (.data, ..., .preserve = FALSE) 
 {
