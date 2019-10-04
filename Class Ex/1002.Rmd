@@ -1,0 +1,15 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+
+log(10)
+library(tidyverse)
+?count()
+library(ggplot2)
+?ggplot()
+?plot()
+```

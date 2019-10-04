@@ -1,0 +1,143 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+# Load packages
+library(ggplot2, quietly = T)
+library(tidyverse, quietly = T)
+library(readr, quietly = T)
+
+# Load dataset
+# wget https://www.dropbox.com/s/xi1ilrp6uzwh4i8/data_20190822_luad_lusc_rnaseq_normalized.RData
+load('data_20190822_luad_lusc_rnaseq_normalized.RData')
+
+colnames(d_luad)
+colnames(d_lusc)
+
+d_luad %>% count(shortLetterCode)
+d_lusc %>% count(shortLetterCode)
+
+d_luad %>%
+  count(shortLetterCode) %>% 
+  ggplot(., aes(shortLetterCode, n, fill=shortLetterCode)) + 
+  geom_bar(stat="identity", position=position_dodge())
+d_lusc %>%
+  count(shortLetterCode) %>% 
+  ggplot(., aes(shortLetterCode, n, fill=shortLetterCode)) + 
+  geom_bar(stat="identity", position=position_dodge())
+
+bind_rows(d_luad %>% 
+            mutate(type='luad') %>%
+            select(type, shortLetterCode, tumor_stage), 
+          d_lusc %>% 
+            mutate(type='lusc') %>%
+            select(type, shortLetterCode, tumor_stage)) %>%
+  count(shortLetterCode, type) %>% 
+  complete(type, shortLetterCode, fill = list(n = 0)) %>% # Q1: What is this? 
+  ggplot(., aes(shortLetterCode, n, fill=shortLetterCode)) + 
+  geom_bar(stat="identity", position=position_dodge()) + 
+  facet_wrap(~type, scales = 'free_x', ncol=5) # Q2: What is this?
+
+# Plot histogram
+ggplot(d_luad, aes(age_at_diagnosis)) + geom_histogram(bins=100)
+
+# Change the axis
+ggplot(d_luad, aes(age_at_diagnosis/365)) + geom_histogram(bins=100)
+
+ggplot(d_luad, aes(age_at_diagnosis)) + geom_density()
+
+ggplot(d_luad, aes(age_at_diagnosis, fill=gender)) + geom_histogram(bins=100)
+
+ggplot(d_luad, aes(age_at_diagnosis/365, fill=tumor_stage)) + 
+  geom_histogram(bins=100) + facet_wrap(~tumor_stage)
+
+
+# Count the number of tumors in the LUAD dataset
+counts_tumor <- d_luad %>% count(tumor_stage)
+
+# Try bar plot
+ggplot(counts_tumor, aes( tumor_stage, n)) + geom_bar(stat="identity")
+
+# Cancer type by tumor stages
+bind_rows(d_luad %>% 
+            filter(shortLetterCode == 'TP') %>% 
+            mutate(type='luad') %>%
+            select(type, tumor_stage), 
+          d_lusc %>% 
+            filter(shortLetterCode == 'TP') %>% 
+            mutate(type='lusc') %>%
+            select(type, tumor_stage)) %>% 
+  count(type, tumor_stage) %>%
+  mutate(tumor_stage = factor(tumor_stage, levels=rev(unique(tumor_stage)))) %>%
+  ggplot(aes( tumor_stage, n, fill=type)) + 
+  labs(title = 'Cancer type by tumor stages',
+       x = '', y='Number of samples for TCGA RNA-seq') + 
+  theme_minimal() + geom_bar(stat="identity") + 
+  facet_wrap(~type) + coord_flip()
+
+# Cancer type by Sex
+bind_rows(d_luad %>% 
+            filter(shortLetterCode == 'TP') %>% 
+            mutate(type='luad') %>%
+            select(type, gender), 
+          d_lusc %>% 
+            filter(shortLetterCode == 'TP') %>% 
+            mutate(type='lusc') %>%
+            select(type, gender)) %>% 
+  count(type, gender) %>%
+  ggplot(aes( gender, n, fill=type)) + 
+  labs(title = 'Cancer type by Sex',
+       x = '', y='Number of samples for TCGA RNA-seq') + 
+  theme_minimal() + geom_bar(stat="identity") + 
+  facet_wrap(~type) + coord_flip()
+
+# Add gender with stages
+bind_rows(d_luad %>% 
+            filter(shortLetterCode == 'TP') %>% 
+            mutate(type='luad') %>%
+            select(type, tumor_stage, gender), 
+          d_lusc %>% 
+            filter(shortLetterCode == 'TP') %>% 
+            mutate(type='lusc') %>%
+            select(type, tumor_stage, gender)) %>% 
+  count(type, tumor_stage, gender) %>% 
+  complete(gender, type, tumor_stage, fill = list(n = 0)) %>%
+  mutate(tumor_stage = factor(tumor_stage, levels=rev(unique(tumor_stage))), 
+         gender = factor(gender)) %>%
+  ggplot(., aes(tumor_stage, n, fill=gender)) + 
+  geom_bar(stat="identity", position=position_dodge()) + 
+  facet_wrap(~type) + coord_flip() 
+
+
+# Cancer type by biopsy
+bind_rows(d_luad %>% 
+            filter(shortLetterCode == 'TP') %>% 
+            mutate(type='luad') %>%
+            select(type, site_of_resection_or_biopsy), 
+          d_lusc %>% 
+            filter(shortLetterCode == 'TP') %>% 
+            mutate(type='lusc') %>%
+            select(type, site_of_resection_or_biopsy)) %>% 
+  count(type, site_of_resection_or_biopsy) %>%
+  ggplot(aes( site_of_resection_or_biopsy, n, fill=type)) + 
+  labs(title = 'Cancer type by biopsy',
+       x = '', y='Number of samples for TCGA RNA-seq') + 
+  theme_minimal() + geom_bar(stat="identity") + 
+  facet_wrap(~type) + coord_flip() 
+
+bind_rows(d_luad %>% 
+            filter(shortLetterCode == 'TP') %>% 
+            mutate(type='luad') %>%
+            select(type, gender, age_at_diagnosis, tissue_or_organ_of_origin), 
+          d_lusc %>% 
+            filter(shortLetterCode == 'TP') %>% 
+            mutate(type='lusc') %>%
+            select(type, gender, age_at_diagnosis, tissue_or_organ_of_origin)) %>%
+  ggplot(., aes(gender, age_at_diagnosis/365, fill=gender)) + 
+  geom_boxplot() + labs(y='year at diagnosis') + 
+  facet_wrap(~tissue_or_organ_of_origin)
+```
+
