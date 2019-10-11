@@ -25,11 +25,11 @@ e = subset(e1, select=c(pLI,pRec,pNull))
 ```
 
 ```{r}
-cov(e$pLI,e$pRec) #공분산
-cor(e$pLI,e$pRec, use = 'complete.obs',method = 'pearson')  #공분산을 표준화 시킨 상관계수 강한 음적선형 관계
+cov(e) #공분산
+cor(e, use = 'complete.obs',method = 'pearson')  #공분산을 표준화
 ```
 
-## 상관계수의 검정
+## 상관계수의 검
 ```{r}
 cor.test(e$pLI,e$pRec)
 ```
