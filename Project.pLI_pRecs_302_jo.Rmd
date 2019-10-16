@@ -29,7 +29,7 @@ cov(e) #공분산
 cor(e, use = 'complete.obs',method = 'pearson')  #공분산을 표준화
 ```
 
-## 상관계수의 검
+## 상관계수의 검정
 ```{r}
 cor.test(e$pLI,e$pRec)
 ```
