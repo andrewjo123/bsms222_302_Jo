@@ -39,8 +39,10 @@ cor.test(e$pLI,e$pRec)
 ## 시각화
 ```{r}
 library(corrplot)
+title <- "Correlation Coefficient"
 ecor <- cor(e)
-corrplot(ecor, method = 'shade', tl.col = 'black', tl.srt = 10)
+corrplot(ecor,title=title, method = 'shade', tl.col = 'black',addCoef.col="black", tl.srt = 10,order="FPC")
+
 ```
 
 여기서
