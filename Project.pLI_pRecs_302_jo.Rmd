@@ -57,5 +57,12 @@ corrplot(ecor,title=title, method = 'shade', tl.col = 'black',addCoef.col="black
 
 #### **pLI와 pRec는 강한 음적 선형 관계이다.**
 
+# tidyvers 이용한 코드
+```{r}
+plot_tfy <- read_delim("DDG2P_24_9_2019.with_pLI.txt",delim='\t', col_names = T) %>% subset( select=c(pLI,pRec,pNull)) %>% cor() %>% corrplot(title=title, method = 'shade', tl.col = 'black',addCoef.col="black", tl.srt = 10,order="FPC")
+plot_tfy
+
+```
+
 
 
