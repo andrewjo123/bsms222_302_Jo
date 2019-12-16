@@ -1,0 +1,74 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+a='apple'
+b='apple'
+
+if(a==b){
+  print('This is an apple')
+}else{
+  print('nah, Not an apple')
+}
+
+ifelse(a==b, 'This is an apple','no')
+
+if(a==b){
+  print('sth')
+}else if(a=='pear'){
+  print('This is a pear')
+}else{
+  print('This is something else')
+}
+
+d = c('apple','banana','apple','pear')
+
+ifelse(d=='apple', 'Right!','Nah')
+
+
+options(stringsAsFactors = F)
+ d = read.csv('https://www.dropbox.com/s/he7r6v4hxu0ibno/tableS1.Sanders2018.txt?dl=1', sep='\t')
+ifelse(d$PatientSex=='F', 'Female', 'Not Female')
+ifelse(d$PatientSex %in% c('M','F'), 'Reported', 'Unknwon')
+
+grepl('apple', a)
+a
+grepl('appl', a)
+
+fahrenheit_to_celsius <- function(temp_F) {
+  temp_C <- (temp_F - 32) * 5 / 9
+  return(temp_C)
+}
+# return? 함수를 실행한후 나온 값 하나를 출력한다
+# temp_C2 = temp_C 를 한후 temp_C2, temp_C 중하나 선택 할수도 있다.
+fahrenheit_to_celsius(80)
+
+for (i in c(80,90,100,2000)) {
+  print(fahrenheit_to_celsius(i))
+}
+# install.packages("ggplot2")
+library(ggplot2)
+ggplot2::geom_abline()
+
+# base::mean()
+
+# install.packages("dplyr")
+library(dplyr)
+?stats::filter()
+?filter
+# 패키지마다 중복 이름의 함수가 있을수도 있다.
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.

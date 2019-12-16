@@ -1,0 +1,37 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#1
+p <- 0.4
+N <- 2000
+sqrt(p*(1-p))/sqrt(N)
+#2
+x_hat <- 0.48
+se <- sqrt(x_hat*(1-x_hat)/30)
+se
+#3
+pnorm(0.01/se) - pnorm(-0.01/se)
+
+# install.packages("gProfileR")
+# install.packages("gprofiler2")
+library(gProfileR)
+library(gprofiler2)
+gprofiler(query, organism = "hsapiens", sort_by_structure = T,
+ordered_query = F, significant = T, exclude_iea = F,
+underrep = F, evcodes = F, region_query = F, max_p_value = 1,
+min_set_size = 0, max_set_size = 0, min_isect_size = 0,
+correction_method = "analytical", hier_filtering = "none",
+domain_size = "annotated", custom_bg = "", numeric_ns = "",
+png_fn = NULL, include_graph = F, src_filter = NULL)
+
+
+```
+
+

@@ -1,0 +1,38 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+```{r}
+library(ggplot2, quietly = T)
+library(tidyverse, quietly = T)
+library(readr, quietly = T)
+load('data_20190822_luad_lusc_rnaseq_normalized.RData')
+
+t1 <- ggplot(d_luad, aes(race, pack_years_smoked)) + 
+  geom_violin(aes(fill=race)) + geom_boxplot(fill='white', width=0.3)
+
+t2 <- ggplot(d_luad, aes(race, pack_years_smoked)) + 
+  geom_violin(aes(fill=race))  + 
+  geom_dotplot(binaxis='y', stackdir='center', dotsize=0.3)
+
+t3 <- ggplot(d_luad, aes(pack_years_smoked)) + 
+  geom_histogram(bins=100, colour="purple", fill="white")+ 
+  geom_density(alpha=.2, fill="#FF6666")
+
+t4 <- ggplot(d_luad, aes(cigarettes_per_day)) + 
+  geom_histogram(bins=100, colour="red", fill="white")+ 
+  geom_density(alpha=.2, fill="#FF6666")
+
+
+library(cowplot)
+p = plot_grid(t1, t2,t3,t4, ncol=2)
+ggsave('test.pdf', p)
+
+#theme_set(theme_gray(base_size = 20)) # font size
+
+
+
+```

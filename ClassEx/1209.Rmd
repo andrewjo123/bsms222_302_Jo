@@ -1,0 +1,59 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+q-q plot을 그려서 정규성을 검토할줄 알아야한다.
+1. tidyverse
+2. ggplot
+두가지 방법을 이용해서 만들어라
+
+```{r}
+B <- 10000
+N <- 1000
+p <- 0.45#확률
+x_hat <- replicate(B, {
+  x <- sample(c(0,1), size = N, replace = TRUE, prob = c(1-p, p))
+  mean(x)
+})#몬테칼로
+#1
+class(x_hat)
+#2
+p1 <- data.frame(x_hat) %>% ggplot(aes(x_hat))+geom_histogram(color='black',fill='grey')
+p1
+#qqplot (y=x 그래프)
+data.frame(x_hat) %>% ggplot(aes(sample=x_hat))+geom_qq()+geom_qq_line()
+#geom_abline은 선
+
+```
+## B=10, 100에 따른 차이를 비교해라
+```{r}
+B <- 10
+N <- 1000
+p <- 0.45#확률
+x_hat <- replicate(B, {
+  x <- sample(c(0,1), size = N, replace = TRUE, prob = c(1-p, p))
+  mean(x)
+})#몬테칼로
+
+#b=10
+data.frame(x_hat) %>% ggplot(aes(x_hat))+geom_histogram(color='black',fill='grey')
+
+B <- 100
+N <- 1000
+p <- 0.45#확률
+x_hat <- replicate(B, {
+  x <- sample(c(0,1), size = N, replace = TRUE, prob = c(1-p, p))
+  mean(x)
+})#몬테칼로
+
+#b=100
+data.frame(x_hat) %>% ggplot(aes(x_hat))+geom_histogram(color='black',fill='grey')
+
+
+```
+Confidence intervals 15.6.1
+이미지는 
+
+```{r}
+
+```

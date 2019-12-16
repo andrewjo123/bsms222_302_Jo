@@ -1,0 +1,35 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+```{r}
+set.seed(3)
+I <- 5
+J <- 6
+N <- 2000
+d <- .021
+p <- (d + 1) / 2
+h <- rnorm(I, 0, 0.025)
+X <- sapply(1:I, function(i){
+  d + h[i] + rnorm(J, 0, 2 * sqrt(p * (1 - p) / N))
+})
+class(X)
+
+# 그래프 만드는 법 16.8.3
+library(tidyverse)
+
+m <- as.data.frame(X) %>% rename(A=V1, B=V2, C=V3, D=V4,E=V5) %>% gather(polster,spread) %>% ggplot(aes(polster,spread))+geom_point()+coord_flip()# 그래프 돌리익 코드 플립
+# 그래프
+m
+
+m <- as.data.frame(X) %>% rename(A=V1, B=V2, C=V3, D=V4,E=V5) %>% gather(polster,spread)
+head(m)
+min(m$spread)
+
+# p1 <- n =20 mutate(N=20), p2 <- n =2000 mutate(N=2000) , p3 <- n =20000 그래프 순으로 그림을 그려라
+# m = rbind.data.frame(m1,m2,m3)
+
+```

@@ -1,0 +1,47 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+```{r}
+# 1
+p <- 0.4
+N <- 2000
+
+x <- sample(c(0, 1), size = N, replace = TRUE, prob = c(1-p, p))
+
+x_hat <- mean(x)
+
+se_hat <- sqrt(x_hat * (1 - x_hat) / N)
+
+c(x_hat - 1.96 * se_hat, x_hat + 1.96 * se_hat)
+
+# 2
+B <- 10000
+inside <- replicate(B, {
+  x <- sample(c(0,1), size = N, replace = TRUE, prob = c(1-p, p))
+  x_hat <- mean(x)
+  se_hat <- sqrt(x_hat * (1 - x_hat) / N)
+  between(p, x_hat - 1.96 * se_hat, x_hat + 1.96 * se_hat)
+})
+
+
+mean(inside)
+
+# 3
+N <- 100
+x_hat
+t <-(2 * x_hat - 1) + c(-1.96, 1.96) * 2 * sqrt(x_hat * (1 - x_hat) / N)
+
+plot(t)
+
+```
+
+
+```{r}
+
+
+
+```

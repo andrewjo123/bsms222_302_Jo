@@ -1,0 +1,43 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+```{r}
+# 15.6.1
+N <- 1000
+B <- 10000
+p <- 0.45
+inside <- replicate(B, {
+  x <- sample(c(0,1), size = N, replace = TRUE, prob = c(1-p, p))
+  x_hat <- mean(x)
+  se_hat <- sqrt(x_hat * (1 - x_hat) / N)
+  between(p, x_hat - 1.96 * se_hat, x_hat + 1.96 * se_hat)
+  return(c(x_hat,se_hat)) #새로 추가
+})
+mean(inside)
+#> [1] 0.948
+dim(inside)
+d <- t(inside)
+
+
+df <- as.data.frame(d) %>%
+  rename(x_hat='V1',se_hat='V2') %>%
+  mutate(Ci_low=x_hat - 1.96 * se_hat,
+         Ci_high=x_hat + 1.96 * se_hat,
+         p_inside=ifelse(Ci_low <= p & Ci_high >= p, 'Yes','No'))%>%
+  mutate(n=seq(1,B))
+# Ci_low<=p<=Ci_high 일때 Yes, 아니면 No로 넣는다.
+
+# define top, bottom of the error bar
+# df[1:100,] 100개만 뽑기
+g <- ggplot(df[1:100,], aes(x_hat, n, colour=p_inside))
+g + geom_point() +
+  geom_errorbarh(aes(xmax= Ci_high, xmin= Ci_low))
+
+
+```
+
+
